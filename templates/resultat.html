@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Résultats{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center text-primary">Résultats du Calcul</h2>
+    <div class="card shadow p-4 mt-4">
+        {% if D_AB and erreur_relative %}
+            <p><strong>Coefficient de diffusion D<sub>AB</sub> :</strong> {{ D_AB }}</p>
+            <p><strong>Erreur relative :</strong> {{ erreur_relative }}%</p>
+        {% else %}
+            <p>Aucun résultat disponible. Veuillez effectuer un calcul d'abord.</p>
+        {% endif %}
+    </div>
+
+    <!-- Section pour afficher les données de la courbe -->
+    <div class="card shadow p-4 mt-4">
+        <h4 class="text-center text-secondary">Données pour le traçage de la courbe</h4>
+        {% if courbe_data %}
+            <table class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th>Fraction molaire de A (X<sub>A</sub>)</th>
+                        <th>Coefficient de diffusion D<sub>AB</sub></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in courbe_data %}
+                        <tr>
+                            <td>{{ row['X_A'] }}</td>
+                            <td>{{ row['D_AB'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p class="text-center">Aucune donnée disponible pour le traçage de la courbe.</p>
+        {% endif %}
+    </div>
+
+    <div class="text-center mt-4">
+        <a href="{{ url_for('calcul') }}" class="btn btn-primary">Effectuer un nouveau calcul</a>
+        <a href="{{ url_for('visualiser_courbe') }}" class="btn btn-info">Visualiser la courbe</a>
+    </div>
+
+    <!-- Bouton pour réinitialiser les données -->
+    <div class="text-center mt-4">
+        <form method="POST" action="{{ url_for('reset_data') }}">
+            <button type="submit" class="btn btn-danger">Réinitialiser les données</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

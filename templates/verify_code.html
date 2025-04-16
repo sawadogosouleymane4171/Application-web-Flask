@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Vérification du code{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <h2 class="text-center text-primary mb-4">Vérification du code</h2>
+                    <form method="POST" action="{{ url_for('verify_code') }}">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="code" name="code" placeholder="Code de vérification" required>
+                            <label for="code">Code de vérification</label>
+                        </div>
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary btn-lg w-100">Vérifier</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

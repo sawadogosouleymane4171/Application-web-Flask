@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block title %}Méthode UNIFAC{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow p-4">
+        <h2 class="text-center mb-4 text-primary">Méthode UNIFAC</h2>
+        <p class="text-center text-muted">Bonjour <strong>{{ username }}</strong>, vous êtes connecté à la méthode UNIFAC.</p>
+
+        <hr>
+
+        <div class="mt-4">
+            <h4 class="mb-3 text-secondary">🔬 Introduction à la méthode UNIFAC :</h4>
+            <p>
+                La méthode UNIFAC (Universal Quasi-Chemical Functional Group Activity Coefficients) est une méthode thermodynamique 
+                utilisée pour prédire les coefficients d'activité dans des mélanges multicomposants. Elle repose sur une approche 
+                basée sur les groupes fonctionnels des molécules, permettant de modéliser le comportement non idéal des mélanges liquides.
+            </p>
+            <p>
+                Cette méthode est particulièrement utile pour les systèmes complexes où les interactions moléculaires jouent un rôle 
+                crucial dans les propriétés thermodynamiques.
+            </p>
+
+            <h5 class="mt-4 text-dark">⚙️ Calcul des coefficients d'activité :</h5>
+            <p>
+                Le calcul des coefficients d'activité dans la méthode UNIFAC repose sur deux contributions principales :
+            </p>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <strong>1. Contribution combinatoire :</strong> 
+                    Cette partie dépend de la taille et de la forme des molécules dans le mélange. Elle modélise les effets géométriques 
+                    des molécules.
+                </li>
+                <li class="list-group-item">
+                    <strong>2. Contribution résiduelle :</strong> 
+                    Cette partie prend en compte les interactions spécifiques entre les groupes fonctionnels des molécules. 
+                    Elle est calculée à partir des paramètres d'interaction entre les groupes fonctionnels.
+                </li>
+            </ul>
+
+            <h5 class="mt-4 text-dark">📊 Implications dans le calcul du coefficient de diffusion :</h5>
+            <p>
+                Les coefficients d'activité calculés par UNIFAC sont essentiels pour modéliser les propriétés thermodynamiques des mélanges. 
+                Ils interviennent directement dans le calcul du coefficient de diffusion en phase liquide, permettant de :
+            </p>
+            <ul class="list-group">
+                <li class="list-group-item">Prendre en compte les interactions moléculaires complexes.</li>
+                <li class="list-group-item">Améliorer la précision des modèles de diffusion.</li>
+                <li class="list-group-item">Prédire les comportements non idéaux des mélanges liquides.</li>
+            </ul>
+
+            <h5 class="mt-4 text-dark">🏭 Applications industrielles :</h5>
+            <p>
+                La méthode UNIFAC est largement utilisée dans les industries chimiques et pétrochimiques pour :
+            </p>
+            <ul class="list-group">
+                <li class="list-group-item">Optimiser les procédés de séparation, tels que la distillation et l'extraction liquide-liquide.</li>
+                <li class="list-group-item">Prédire les propriétés des mélanges complexes, réduisant ainsi le besoin d'expérimentations coûteuses.</li>
+                <li class="list-group-item">Améliorer la conception des équipements de transfert de matière.</li>
+                <li class="list-group-item">Simuler les vitesses de diffusion dans les systèmes multicomposants.</li>
+            </ul>
+
+            <h5 class="mt-4 text-dark">🔍 Simulation des systèmes multicomposants :</h5>
+            <p>
+                Grâce à UNIFAC, il est possible de simuler le comportement des systèmes multicomposants en tenant compte des interactions 
+                spécifiques entre les molécules. Cela permet de prédire avec précision les vitesses de diffusion et les propriétés de transport.
+            </p>
+
+            <h5 class="mt-5 text-success">📌 Conclusion :</h5>
+            <p>
+                La méthode UNIFAC est un outil puissant pour les ingénieurs et les scientifiques. Elle offre une approche fiable pour modéliser 
+                les mélanges complexes, optimiser les procédés industriels et réduire les coûts opérationnels. Son utilisation est essentielle 
+                dans les domaines où les interactions moléculaires jouent un rôle clé.
+            </p>
+        </div>
+
+        <!-- Bouton vers le calcul -->
+        <div class="text-center mt-5">
+            <a href="{{ url_for('calcul') }}" class="btn btn-outline-primary btn-lg btn-calculate">
+                🧮 Effectuer un calcul de diffusion
+            </a>
+        </div>
+
+        <!-- Déconnexion -->
+        <div class="text-center mt-4">
+            <a href="{{ url_for('logout') }}" class="btn btn-danger btn-sm btn-logout">
+                🔒 Se déconnecter
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

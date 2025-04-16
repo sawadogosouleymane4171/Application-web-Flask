@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Courbe de D_AB en fonction de X_A</h2>
+
+        <!-- Affichage des messages flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert alert-info">
+                    <ul>
+                        {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Affichage de l'image de la courbe -->
+        <div class="text-center">
+            {% if plot_path %}
+                <img src="{{ url_for('static', filename='courbe_DAB_XA.png') }}" alt="Courbe D_AB vs X_A" class="img-fluid">
+            {% else %}
+                <p class="text-muted">La courbe n'est pas encore disponible. Veuillez effectuer un calcul.</p>
+            {% endif %}
+        </div>
+
+        <!-- Bouton de retour au calcul -->
+        <div class="text-center mt-4">
+            <a href="{{ url_for('calcul') }}" class="btn btn-secondary">Retour au calcul</a>
+        </div>
+    </div>
+{% endblock %}

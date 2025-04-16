@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Calcul des Coefficients de Diffusion</h2>
+
+        <!-- Affichage des messages flash -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alert alert-info">
+                    <ul>
+                        {% for category, message in messages %}
+                            <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Formulaire pour le calcul -->
+        <form method="POST" action="{{ url_for('calcul') }}">
+            <div class="form-group">
+                <label for="D_AB_initial">D_AB (Diffusion initiale A dans B) :</label>
+                <input type="number" id="D_AB_initial" name="D_AB_initial" class="form-control" value="2.1e-5" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="D_BA_initial">D_BA (Diffusion initiale B dans A) :</label>
+                <input type="number" id="D_BA_initial" name="D_BA_initial" class="form-control" value="2.67e-5" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="fraction_A">Fraction molaire de A :</label>
+                <input type="number" id="fraction_A" name="fraction_A" class="form-control" value="0.25" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="coef_lambda_A">Coefficient lambda A :</label>
+                <input type="number" id="coef_lambda_A" name="coef_lambda_A" class="form-control" value="1.127" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="coef_lambda_B">Coefficient lambda B :</label>
+                <input type="number" id="coef_lambda_B" name="coef_lambda_B" class="form-control" value="0.973" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="q_A">Quantité A :</label>
+                <input type="number" id="q_A" name="q_A" class="form-control" value="1.432" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="q_B">Quantité B :</label>
+                <input type="number" id="q_B" name="q_B" class="form-control" value="1.4" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="theta_A">Theta A :</label>
+                <input type="number" id="theta_A" name="theta_A" class="form-control" value="0.254" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="theta_B">Theta B :</label>
+                <input type="number" id="theta_B" name="theta_B" class="form-control" value="0.721" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="theta_BA">Theta BA :</label>
+                <input type="number" id="theta_BA" name="theta_BA" class="form-control" value="0.612" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="theta_AB">Theta AB :</label>
+                <input type="number" id="theta_AB" name="theta_AB" class="form-control" value="0.261" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="theta_AA">Theta AA :</label>
+                <input type="number" id="theta_AA" name="theta_AA" class="form-control" value="0.388" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="theta_BB">Theta BB :</label>
+                <input type="number" id="theta_BB" name="theta_BB" class="form-control" value="0.739" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="tau_AB">Tau AB :</label>
+                <input type="number" id="tau_AB" name="tau_AB" class="form-control" value="1.035" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="tau_BA">Tau BA :</label>
+                <input type="number" id="tau_BA" name="tau_BA" class="form-control" value="0.5373" step="any" required>
+            </div>
+            <div class="form-group">
+                <label for="D_exp">D expérimental (valeur observée) :</label>
+                <input type="number" id="D_exp" name="D_exp" class="form-control" value="1.33e-5" step="any" required>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary btn-lg">Calculer</button>
+            </div>
+        </form>
+
+        <!-- Affichage des résultats après calcul -->
+        {% if D_AB %}
+            <h2 class="mt-5">Résultats du calcul :</h2>
+            <p><strong>Coefficient de diffusion D_AB :</strong> {{ D_AB }}</p>
+            <p><strong>Erreur relative :</strong> {{ erreur_relative }}%</p>
+        {% endif %}
+        
+        <!-- Lien pour revenir à la méthode UNIFAC -->
+        <div class="text-center mt-4">
+            <a href="{{ url_for('unifac_method') }}" class="btn btn-secondary">Retour à la méthode UNIFAC</a>
+        </div>
+        
+        <!-- Lien pour visualiser la courbe -->
+        <div class="text-center mt-4">
+            <a href="{{ url_for('visualiser_courbe') }}" class="btn btn-info">Visualiser la courbe D_AB en fonction de X_A</a>
+        </div>
+
+    </div>
+{% endblock %}

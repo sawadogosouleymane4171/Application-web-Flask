@@ -1,0 +1,21 @@
+# Environnements virtuels
+venv/
+
+# Fichiers de configuration sensibles
+.env
+
+# Fichiers de base de données
+instance/
+*.db
+
+# Fichiers Python compilés
+__pycache__/
+*.pyc
+*.pyo
+
+# Logs
+*.log
+
+# Inclure le dossier migrations mais exclure les fichiers inutiles
+migrations/__pycache__/
+migrations/*.pyc

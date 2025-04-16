@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block title %}Tableau de bord administrateur{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center text-primary">Tableau de bord administrateur</h2>
+    <div class="card shadow p-4 mt-4">
+        <h4 class="text-secondary">Liste des utilisateurs :</h4>
+        {% if users %}
+            <table class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nom d'utilisateur</th>
+                        <th>Email</th>
+                        <th>Date d'inscription</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.username }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.date_created.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucun utilisateur enregistré.</p>
+        {% endif %}
+    </div>
+    <div class="card shadow p-4 mt-4">
+        <h4 class="text-secondary">Activités des utilisateurs :</h4>
+        {% if activities %}
+            <table class="table table-striped mt-3">
+                <thead>
+                    <tr>
+                        <th>ID Utilisateur</th>
+                        <th>Activité</th>
+                        <th>Horodatage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for activity in activities %}
+                        <tr>
+                            <td>{{ activity.user_id }}</td>
+                            <td>{{ activity.activity }}</td>
+                            <td>{{ activity.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucune activité enregistrée.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

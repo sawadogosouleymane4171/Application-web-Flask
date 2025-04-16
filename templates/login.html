@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <form method="POST" action="{{ url_for('login') }}" class="shadow-lg p-4 rounded bg-white">
+        <h1 class="text-center text-danger">Se connecter</h1>
+        <div class="social-media mt-3 d-flex justify-content-center">
+            <p><i class="fab fa-google"></i></p>
+            <p><i class="fab fa-youtube"></i></p>
+            <p><i class="fab fa-facebook-f"></i></p>
+            <p><i class="fab fa-twitter"></i></p>
+        </div>
+        <p class="choose-email text-center mt-3">ou utiliser mon adresse e-mail :</p>
+        <div class="inputs mt-3">
+            <input type="email" name="email" placeholder="Email" class="form-control mb-3" required>
+            <input type="password" name="password" placeholder="Mot de passe" class="form-control" required>
+        </div>
+        <p class="text-center mt-2">
+            <a href="{{ url_for('reset_request') }}" class="text-muted">Mot de passe oublié ?</a>
+        </p>
+        <p class="inscription text-center mt-3">
+            Je n'ai pas de <span><a href="{{ url_for('register') }}" class="text-danger">compte</a></span>. Je m'en <span><a href="{{ url_for('register') }}" class="text-danger">crée</a></span> un.
+        </p>
+        <div class="text-center mt-4">
+            <button type="submit" class="btn btn-danger w-100">Se connecter</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Créer un administrateur{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center text-primary">Créer un administrateur</h2>
+    <div class="card shadow p-4 mt-4">
+        <form method="POST" action="{{ url_for('create_admin') }}">
+            <div class="form-group">
+                <label for="username">Nom d'utilisateur :</label>
+                <input type="text" id="username" name="username" class="form-control" required>
+            </div>
+            <div class="form-group mt-3">
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+            <div class="form-group mt-3">
+                <label for="password">Mot de passe :</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <div class="form-group mt-3">
+                <label for="confirm_password">Confirmer le mot de passe :</label>
+                <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+            </div>
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-primary">Créer l'administrateur</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
