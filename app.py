@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, redirect, url_for, request, flash, session
+from flask import Flask, render_template, redirect, url_for, request, flash, session, current_app
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_mail import Mail, Message
@@ -174,21 +174,27 @@ def reset_request():
         email = request.form.get('email')
         user = User.query.filter_by(email=email).first()
         if user:
-            # Génération d'un code de vérification aléatoire
-            verification_code = randint(100000, 999999)
-            session['verification_code'] = verification_code
-            session['reset_email'] = email
+            try:
+                # Génération d'un code de vérification aléatoire
+                verification_code = randint(100000, 999999)
+                session['verification_code'] = verification_code
+                session['reset_email'] = email
 
-            # Envoi du code par email
-            msg = Message('Code de vérification pour réinitialisation',
-                          sender=app.config['MAIL_USERNAME'],  # Utiliser MAIL_USERNAME comme expéditeur
-                          recipients=[email])
-            msg.body = f"Votre code de vérification est : {verification_code}"
-            mail.send(msg)
+                # Envoi du code par email
+                msg = Message('Code de vérification pour réinitialisation',
+                              sender=current_app.config['MAIL_DEFAULT_SENDER'],
+                              recipients=[email])
+                msg.body = f"Votre code de vérification est : {verification_code}"
+                mail.send(msg)
 
-            flash('Un code de vérification a été envoyé à votre adresse email.', 'info')
-            return redirect(url_for('verify_code'))
-        flash('Aucun utilisateur trouvé avec cette adresse email.', 'danger')
+                flash('Un code de vérification a été envoyé à votre adresse email.', 'info')
+                return redirect(url_for('verify_code'))
+            except Exception as e:
+                # Ajoutez un log pour capturer l'erreur
+                print(f"Erreur lors de l'envoi de l'email : {e}")
+                flash('Une erreur est survenue lors de l\'envoi de l\'email.', 'danger')
+        else:
+            flash('Aucun utilisateur trouvé avec cette adresse email.', 'danger')
 
     return render_template('reset_request.html')
 
@@ -364,6 +370,21 @@ def visualiser_courbe():
     plt.close()
 
     return render_template('visualiser_courbe.html', plot_path='static/courbe_DAB_XA.png')
+
+@app.route('/test_email')
+def test_email():
+    """Route temporaire pour tester l'envoi d'un email."""
+    try:
+        msg = Message(
+            "Test de l'envoi d'email",
+            sender=current_app.config['MAIL_DEFAULT_SENDER'],
+            recipients=["votre_email_de_test@gmail.com"]
+        )
+        msg.body = "Ceci est un test pour vérifier l'envoi d'emails depuis Render."
+        mail.send(msg)
+        return "Email envoyé avec succès !"
+    except Exception as e:
+        return f"Erreur lors de l'envoi de l'email : {e}"
 
 @app.errorhandler(404)
 def page_not_found(e):
