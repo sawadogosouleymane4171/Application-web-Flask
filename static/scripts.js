@@ -16,4 +16,16 @@ $(document).ready(function () {
             e.preventDefault();
         }
     });
+
+    // Supprimez le bouton "Se déconnecter" sur la page unifac_method
+    if (window.location.pathname === "/unifac_method") {
+        $(".btn-logout").remove();
+    }
+
+    // Ajoutez une animation pour les boutons sur mobile
+    $(".btn").on("touchstart", function () {
+        $(this).addClass("btn-active");
+    }).on("touchend", function () {
+        $(this).removeClass("btn-active");
+    });
 });

@@ -199,6 +199,23 @@ form button:hover {
         padding: 10px 20px;
         font-size: 0.9rem;
     }
+
+    body {
+        font-size: 14px; /* Réduire la taille de la police */
+    }
+
+    .navbar {
+        flex-direction: column; /* Empiler les éléments de la barre de navigation */
+    }
+
+    .btn {
+        width: 100%; /* Les boutons prennent toute la largeur */
+        margin-bottom: 10px;
+    }
+
+    .form-control {
+        font-size: 16px; /* Agrandir les champs de formulaire */
+    }
 }
 
 @media (max-width: 576px) {
